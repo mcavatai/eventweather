@@ -1,0 +1,47 @@
+﻿CSC435 Web Service Project
+Zach Foster, Paul Kwoyelo, Mike Cavataio, Thomas Glenister
+
+
+Purpose of app: Get location of football games (and other events) based on a search query made by the user, then using the location data to get weather prediction data from three weather web services. Use the predictions collected and average the weather conditions at the given stadium location and return weather advice to the user.
+
+
+
+
+Requirements:
+* The application shall connect to Eventful’s API in order to gather information on various types of events, including the venue and start time.
+* Once the necessary game data is collected, it will be used to request weather information at the specified date, time, and location from various weather services.
+* The weather data will be averaged from all sources and displayed to the user.
+* Links to the event web page can be displayed so the user can view more information if they wish to do so.
+* The application will keep track of previous search queries in a user’s session to display weather information for the user’s favourite events when they connect to the application next time. 
+   * For instance, if a user searches the same type of event more than 5 times, the next time they log on, data for that type of event will be displayed automatically.
+   * This will most likely be done by setting a server attribute that keeps track of how many times a certain team was searched for in a user’s session.
+
+
+
+
+Back-end functionality:
+* Consume the Eventful API to gather data regarding location of a user suggested event. 
+* Use the location information collected as a search query on three weather web services to get a range of weather forecast.
+* The back-end would compute the average of the forecasts and return to the user the “best” weather prediction of the event location.
+
+
+
+
+Web tier:
+* The user will make location requests through a search box and the response will be displayed to the user on the browser.
+* It should be possible to keep track of how many times certain events have been searched, and it should be possible to clear this search history.
+
+
+
+
+RESOURCES:
+
+
+Eventful API
+http://api.eventful.com/
+
+
+Weather API
+https://www.apixu.com/ 
+https://darksky.net/dev/
+https://openweathermap.org/api
