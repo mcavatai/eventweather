@@ -81,6 +81,7 @@ public class DBManager {
             }
             return searchesArray;
         } catch (Exception e) {
+            System.out.println(e.toString());
             return null;
         }
     }
