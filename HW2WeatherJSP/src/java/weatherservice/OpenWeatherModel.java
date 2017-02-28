@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -62,7 +63,7 @@ public class OpenWeatherModel {
             validZip = false;
         }
     }
-    
+
     public boolean getValid() {
         return validZip;
     }
@@ -78,12 +79,28 @@ public class OpenWeatherModel {
     public String getHumidity() {
         return humid;
     }
-    
-    public String getWindSpeed() { 
+
+    public String getWindSpeed() {
         return wSpeed;
     }
-    
+
     public String getOvercast() {
         return overcast;
+    }
+
+    public int incSearchCount(String zip) {
+        DBManager manager = new DBManager();
+        ArrayList<String> searches = manager.getSearches("testmail@test.com");
+        if (!searches.isEmpty()) {
+            if (searches.contains(zip)) {
+                return manager.incrementSearchCount(zip, "testmail@test.com");
+            } else {
+                manager.addSearch(zip, "testmail@test.com");
+                return 1;
+            }
+        } else {
+            manager.addSearch(zip, "testmail@test.com");
+            return 1;
+        }
     }
 }

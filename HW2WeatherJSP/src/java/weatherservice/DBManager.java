@@ -85,9 +85,9 @@ public class DBManager {
         }
     }
 
-    public boolean incrementSearchCount(String search, String userEmail) {
+    public int incrementSearchCount(String search, String userEmail) {
         try {
-            int searchCount;
+            int searchCount = -1;
             ResultSet searches = st.executeQuery("SELECT * FROM Searches WHERE User = '" + userEmail + "' AND Search = '" + search + "';");
             while (searches.next()) {
                 //grab Search_Count here
@@ -98,9 +98,9 @@ public class DBManager {
                 st.executeUpdate("DELETE * FROM Searches WHERE User = '" + userEmail + "' AND Search = '" + search + "';");
                 st.executeUpdate("INSERT into Searches VALUES('" + search + "', '" + userEmail + "', '" + searchCount + "');");
             }
-            return true;
+            return searchCount;
         } catch (Exception e) {
-            return false;
+            return -2;
         }
     }
 
