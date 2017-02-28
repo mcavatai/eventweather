@@ -42,7 +42,8 @@
             <p>Cloudiness: <%= model.getOvercast()%> % </p>
             <% } else { %>
             <p>Please enter a valid 5-digit zip code.</p>
-            <%   } }
+            <%   }
+                }
             %>
         </form>
     </body>
