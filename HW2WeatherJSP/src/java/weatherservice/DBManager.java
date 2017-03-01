@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class DBManager {
 
-    Statement st;
+    Connection conn;
 
     public DBManager() {
 
@@ -23,8 +23,7 @@ public class DBManager {
             }
 
             //Should establish the connection
-            Connection conn = DriverManager.getConnection("jdbc:mysql://pi.cs.oswego.edu:22/" + "tank", "zfoster", "csc380");
-            st = conn.createStatement();
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + "tank", "root", "smb3pwns");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -35,7 +34,7 @@ public class DBManager {
     public boolean addUser(String name, String password, String email) {
 
         try {
-            st.executeUpdate("INSERT into Users VALUES('" + name + "', '" + password + "', '" + email + "');");
+            conn.createStatement().executeUpdate("INSERT into Users VALUES('" + name + "', '" + password + "', '" + email + "');");
             return true;
         } catch (Exception e) {
             return false;
@@ -47,8 +46,8 @@ public class DBManager {
     public boolean findUser(String password, String email) {
 
         try {
-            ResultSet user = st.executeQuery("SELECT * FROM Users WHERE Email = '" + email + "' and Password = '" + password + "';");
-            if (user != null) {
+            ResultSet user = conn.createStatement().executeQuery("SELECT * FROM Users WHERE Email = '" + email + "' and Password = '" + password + "';");
+            if (user.next()) {
                 return true;
             }
 
@@ -64,7 +63,7 @@ public class DBManager {
     //adds the search with the user's email to the "Searches" Table
     public boolean addSearch(String search, String userEmail) {
         try {
-            st.executeUpdate("INSERT into Users VALUES('" + search + "', '" + userEmail + "', '" + 1 + "');");
+            conn.createStatement().executeUpdate("INSERT into Searches VALUES('"+ 1 + "', '" + search + "', '" + userEmail + "');");
             return true;
         } catch (Exception e) {
             return false;
@@ -75,7 +74,7 @@ public class DBManager {
     public ArrayList<String> getSearches(String userEmail) {
         ArrayList<String> searchesArray = new ArrayList<>();
         try {
-            ResultSet searches = st.executeQuery("SELECT * FROM Searches WHERE User = '" + userEmail + "';");
+            ResultSet searches = conn.createStatement().executeQuery("SELECT * FROM Searches WHERE UserEmail = '" + userEmail + "';");
             while (searches.next()) {
                 searchesArray.add(searches.getString("Search"));
             }
@@ -89,25 +88,27 @@ public class DBManager {
     public int incrementSearchCount(String search, String userEmail) {
         try {
             int searchCount = -1;
-            ResultSet searches = st.executeQuery("SELECT * FROM Searches WHERE User = '" + userEmail + "' AND Search = '" + search + "';");
+            ResultSet searches = conn.createStatement().executeQuery("SELECT * FROM Searches WHERE UserEmail = '" + userEmail + "' AND Search = '" + search + "';");
             while (searches.next()) {
                 //grab Search_Count here
                 searchCount = searches.getInt("Search_Count");
                 //increment
                 searchCount++;
                 //put back into db
-                st.executeUpdate("DELETE * FROM Searches WHERE User = '" + userEmail + "' AND Search = '" + search + "';");
-                st.executeUpdate("INSERT into Searches VALUES('" + search + "', '" + userEmail + "', '" + searchCount + "');");
+                System.out.println(searchCount);
+                conn.createStatement().executeUpdate("DELETE FROM Searches WHERE UserEmail = '" + userEmail + "' AND Search = '" + search + "';");
+                conn.createStatement().executeUpdate("INSERT into Searches VALUES('"+ searchCount + "', '" + search + "', '" + userEmail + "');");
             }
             return searchCount;
         } catch (Exception e) {
+            System.out.println(e.toString());
             return -2;
         }
     }
 
     public boolean clearSearchHistory(String userEmail) {
         try {
-            st.executeQuery("DELETE * FROM Searches WHERE User = '" + userEmail + "';");
+            conn.createStatement().executeQuery("DELETE FROM Searches WHERE UserEmail = '" + userEmail + "';");
             return true;
         } catch (Exception e) {
             return false;

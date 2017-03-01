@@ -1,3 +1,5 @@
+package Eventful;
+
 import com.evdb.javaapi.APIConfiguration;
 import com.evdb.javaapi.EVDBAPIException;
 import com.evdb.javaapi.EVDBRuntimeException;

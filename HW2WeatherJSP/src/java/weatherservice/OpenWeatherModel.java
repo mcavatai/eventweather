@@ -29,6 +29,7 @@ public class OpenWeatherModel {
     private String overcast = "";
 
     public OpenWeatherModel(String zip) throws MalformedURLException, IOException {
+
         addUser();
         if (zip.length() == 5) {
             validZip = true;
@@ -88,16 +89,21 @@ public class OpenWeatherModel {
     public String getOvercast() {
         return overcast;
     }
-    
+
     public void addUser() {
         DBManager manager = new DBManager();
-        manager.addUser("test", "test", "testmail@test.com");
+        if (!manager.findUser("test", "testmail@test.com")) {
+            manager.addUser("test", "test", "testmail@test.com");
+        }
     }
 
     public int incSearchCount(String zip) {
         DBManager manager = new DBManager();
         ArrayList<String> searches = manager.getSearches("testmail@test.com");
-        if (!searches.isEmpty()) {
+        if (searches != null && !searches.isEmpty()) {
+            for (String vals : searches) {
+                System.out.println(vals);
+            }
             if (searches.contains(zip)) {
                 return manager.incrementSearchCount(zip, "testmail@test.com");
             } else {
