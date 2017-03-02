@@ -12,11 +12,12 @@
 <%@ page import="com.evdb.javaapi.EVDBRuntimeException" %>
 <%@ page import="com.evdb.javaapi.EVDBAPIException" %>
 <%@ page import="com.evdb.javaapi.data.Event" %>
+<%@ page import="com.evdb.javaapi.data.Image" %>
 
 
 <html>
 <head>
-    <title>Title</title>
+    <title>Events</title>
 </head>
 <body>
 
@@ -30,6 +31,7 @@
 <br>
 <h3>Events For : &nbsp;
     <%= request.getParameter("Text")%>
+
 </h3>
 <ol>
 
@@ -39,11 +41,30 @@
         try{
         for (Event event : eventful.search(kWord)) {
     %>
+    <a class='clickEvent' onclick='eventClicked()'>
     <li>
+
         <%
-            out.println(event.getTitle());
+            Image img = event.getImages().get(0);
+            out.println("Event Name: "+event.getTitle());
+            %>
+
+        <br>
+        <%
+            out.println("Venue: "+event.getVenueAddress());
+            %>
+        <br>
+        <%
+            out.println("ZIPCODE: "+event.getVenuePostalCode());
+            %>
+        <br>
+        <%
+            out.println("Time: "+event.getStartTime() + " - "+event.getStopTime());
         %>
+        <%--<img src="<%= img.getUrl() %>">--%>
     </li>
+    </a>
+
     <br>
     <%
         }
@@ -52,5 +73,11 @@
         }
     %>
 </ol>
+<style type="text/css">
+    a.clickEvent:hover {
+        cursor: pointer;
+        color:rebeccapurple;
+    }
+</style>
 </body>
 </html>
