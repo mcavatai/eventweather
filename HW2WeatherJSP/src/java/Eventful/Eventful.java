@@ -33,7 +33,7 @@ public class Eventful {
         eventSearchRequest = new EventSearchRequest();
         eventSearchRequest.setPageSize(10);
         location = new Location();
-        location.setCountry("United Kingdom");
+        location.setCountry("United States");
         eventSearchRequest.setCategory("soccer");
     }
 

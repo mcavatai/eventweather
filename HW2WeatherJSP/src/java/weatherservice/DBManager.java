@@ -95,7 +95,6 @@ public class DBManager {
                 //increment
                 searchCount++;
                 //put back into db
-                System.out.println(searchCount);
                 conn.createStatement().executeUpdate("DELETE FROM Searches WHERE UserEmail = '" + userEmail + "' AND Search = '" + search + "';");
                 conn.createStatement().executeUpdate("INSERT into Searches VALUES('"+ searchCount + "', '" + search + "', '" + userEmail + "');");
             }
