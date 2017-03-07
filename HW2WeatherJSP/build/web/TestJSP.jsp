@@ -13,7 +13,6 @@
         <title>JSP Weather Page</title>
     </head>
     <body>
-        <h1>Hello!</h1>
         <form>
             <table width="75%">
                 <tr> 

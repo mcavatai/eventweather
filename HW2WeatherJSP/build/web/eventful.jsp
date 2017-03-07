@@ -22,7 +22,7 @@
 <body>
 
 
-<form action="index.jsp" method="post">
+<form action="eventful.jsp" method="post">
     Enter Your Search Keyword: &nbsp;
     <input type="text" name="Text">
     <br><br>
