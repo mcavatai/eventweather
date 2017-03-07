@@ -40,6 +40,7 @@
         String kWord = request.getParameter("Text");
         try{
         for (Event event : eventful.search(kWord)) {
+            System.out.println("!");
     %>
     <a class='clickEvent' onclick='eventClicked()'>
     <li>

@@ -14,7 +14,7 @@
     <body>
         <center>
             <b><font size="4"> CREATE NEW ACCOUNT</font></b><br/>&nbsp;
-            <form name ="Signup" method="post" action="CheckUser.jsp">
+            <form name ="Signup" method="post" action="CheckUser">
                 Enter Email: <br />
                 <input type="text" name ="email"> <br />
                 Enter Username: <br />

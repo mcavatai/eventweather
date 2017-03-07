@@ -29,7 +29,7 @@
             
         
 
-        <form name ="Signin" method="post" action="CheckUser.jsp">
+        <form name ="Signin" method="post" action="CheckUser">
             Enter Email: <br />
             <input type="text" name ="email"> <br />
             Enter Password: <br />
