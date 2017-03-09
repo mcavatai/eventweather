@@ -80,8 +80,9 @@ public class CheckUser extends HttpServlet {
         if(username == null){
 
             if(DB.findUser(password, email)){ 
+                session.setAttribute("found", true);
                 session.setAttribute("username", email); 
-                response.sendRedirect("homepage.jsp"); 
+                response.sendRedirect("loggedin/homepage.jsp"); 
             } 
             else{
                 session.setAttribute("found", false);
@@ -91,7 +92,7 @@ public class CheckUser extends HttpServlet {
         else{
             session.setAttribute("username", username); 
             DB.addUser(username, password, email);
-            response.sendRedirect("homepage.jsp"); 
+            response.sendRedirect("loggedin/homepage.jsp"); 
         }
 
     }

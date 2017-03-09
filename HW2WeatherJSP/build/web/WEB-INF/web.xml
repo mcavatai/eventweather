@@ -21,4 +21,13 @@ and open the template in the editor.
         <servlet-name>CheckUser</servlet-name>
         <url-pattern>/CheckUser</url-pattern>
     </servlet-mapping>
+    
+    <filter>
+        <filter-name>Auth</filter-name>
+        <filter-class>weatherservice.AuthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>Auth</filter-name>
+        <url-pattern>/loggedin/*</url-pattern>
+    </filter-mapping>
 </web-app>

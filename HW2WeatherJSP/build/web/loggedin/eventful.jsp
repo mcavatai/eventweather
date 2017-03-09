@@ -22,7 +22,7 @@
 <body>
 
 
-<form action="eventful.jsp" method="post">
+<form action="loggedin/eventful.jsp" method="post">
     Enter Your Search Keyword: &nbsp;
     <input type="text" name="Text">
     <br><br>
@@ -40,7 +40,6 @@
         String kWord = request.getParameter("Text");
         try{
         for (Event event : eventful.search(kWord)) {
-            System.out.println("!");
     %>
     <a class='clickEvent' onclick='eventClicked()'>
     <li>
@@ -63,7 +62,7 @@
             out.println("Time: "+event.getStartTime() + " - "+event.getStopTime());
         %>
         <br>
-        <a href="TestJSP.jsp?zip=<%= event.getVenueCity() %>" class="button">Go to Event Page</a>
+        <a href="loggedin/TestJSP.jsp?zip=<%= event.getVenueCity() %>" class="button">Go to Event Page</a>
         <%--<img src="<%= img.getUrl() %>">--%>
     </li>
     </a>

@@ -16,14 +16,14 @@
     <center>
         <b><font size="5"> EVENTFUL WEATHER</font></b><br/>&nbsp;
         Sign in:
-        <% 
+        <%
            try{
                 if(!((boolean)session.getAttribute("found"))){
                     out.print("Incorrect username or password ");
                 }
            }
            catch(Exception e){
-               //do nothing
+               e.printStackTrace();
            }
         %>
             
