@@ -85,7 +85,7 @@ public class WeatherInfo extends HttpServlet {
             out.println("<title>Weather Data</title></head>");
             out.println("<body>");
             out.println("<h1>Requested data for your location...</h1>");
-            out.println("<p>Your Location: <stroong>" + name + "</strong></p>");
+            out.println("<p>Your Location: <strong>" + name + "</strong></p>");
             out.println("<p>Current Temperature: <strong>" + temp + " K</strong></p>");
             out.println("<p>Current Humidity: <strong>" + humid + "%</strong></p>");
             out.println("<p>Current Wind Speed: <strong>" + wSpeed + " m/s</strong></p>");

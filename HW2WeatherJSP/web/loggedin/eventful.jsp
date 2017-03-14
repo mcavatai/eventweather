@@ -62,7 +62,7 @@
             out.println("Time: "+event.getStartTime() + " - "+event.getStopTime());
         %>
         <br>
-        <a href="loggedin/TestJSP.jsp?zip=<%= event.getVenueCity() %>" class="button">Go to Event Page</a>
+        <a href="TestJSP.jsp?zip=<%= event.getVenueCity() %>" class="button">Go to Event Page</a>
         <%--<img src="<%= img.getUrl() %>">--%>
     </li>
     </a>
