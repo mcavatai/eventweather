@@ -39,7 +39,7 @@
             <p>Humidity: <%= model.getHumidity()%> % </p>
             <p>Wind Speed: <%= model.getWindSpeed()%> m/s </p>
             <p>Cloudiness: <%= model.getOvercast()%> % </p>
-            <p>Number of searches for this area by you: <%= model.incSearchCount(zip) %></p>
+            <p>Number of searches for this area by you: <%= model.incSearchCount(zip, (String) request.getSession(true).getAttribute("username")) %></p>
             <% } else { %>
             <p>Please enter a valid 5-digit zip code.</p>
             <%   }

@@ -28,6 +28,8 @@ public class OpenWeatherModel {
     private String wSpeed = "";
     private String overcast = "";
 
+    private String jsonStrValue;
+
     public OpenWeatherModel(String zip) throws MalformedURLException, IOException {
 
         addUser();
@@ -42,6 +44,7 @@ public class OpenWeatherModel {
                 jsonString += inputLine;
             }
             in.close();
+            jsonStrValue = jsonString;
 
             JSONObject json;
             JSONObject main;
@@ -72,6 +75,7 @@ public class OpenWeatherModel {
                 jsonString += inputLine;
             }
             in.close();
+            jsonStrValue = jsonString;
 
             JSONObject json;
             JSONObject main;
@@ -120,6 +124,10 @@ public class OpenWeatherModel {
         return overcast;
     }
 
+    public String getJson() {
+        return jsonStrValue;
+    }
+
     public void addUser() {
         DBManager manager = new DBManager();
         if (!manager.findUser("test", "testmail@test.com")) {
@@ -127,18 +135,22 @@ public class OpenWeatherModel {
         }
     }
 
-    public int incSearchCount(String zip) {
+    public int incSearchCount(String zip, String email) {
         DBManager manager = new DBManager();
-        ArrayList<String> searches = manager.getSearches("testmail@test.com");
+//        ArrayList<String> searches = manager.getSearches("testmail@test.com");
+        ArrayList<String> searches = manager.getSearches(email);
         if (searches != null && !searches.isEmpty()) {
             if (searches.contains(zip)) {
-                return manager.incrementSearchCount(zip, "testmail@test.com");
+//                return manager.incrementSearchCount(zip, "testmail@test.com");
+                return manager.incrementSearchCount(zip, email);
             } else {
-                manager.addSearch(zip, "testmail@test.com");
+//                manager.addSearch(zip, "testmail@test.com");
+                manager.addSearch(zip, email);
                 return 1;
             }
         } else {
-            manager.addSearch(zip, "testmail@test.com");
+//            manager.addSearch(zip, "testmail@test.com");
+            manager.addSearch(zip, email);
             return 1;
         }
     }
