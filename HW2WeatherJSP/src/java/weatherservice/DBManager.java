@@ -24,7 +24,7 @@ public class DBManager {
             }
 
             //Should establish the connection
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tank?autoReconnect=true&useSSL=false", "root", "Tiger120");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + "tank", "root", "smb3pwns");
             st = conn.createStatement();
         } catch (Exception e) {
             e.printStackTrace();

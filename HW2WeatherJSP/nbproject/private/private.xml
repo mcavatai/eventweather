@@ -5,14 +5,11 @@
         <group>
             <file>file:/C:/Users/Mike/Documents/GitHub/eventweather/HW2WeatherJSP/src/java/weatherservice/restful/RestfulWeather.java</file>
             <file>file:/C:/Users/Mike/Documents/GitHub/eventweather/HW2WeatherJSP/src/java/weatherservice/OpenWeatherModel.java</file>
-            <file>file:/C:/Users/Mike/Documents/GitHub/eventweather/HW2WeatherJSP/src/java/weatherservice/JonsStuffDelete.java</file>
-            <file>file:/C:/Users/Mike/Documents/GitHub/eventweather/HW2WeatherJSP/web/JonHtml.html</file>
-            <file>file:/C:/Users/Mike/Documents/GitHub/eventweather/HW2WeatherJSP/web/loggedin/eventful.jsp</file>
-            <file>file:/C:/Users/Mike/Documents/GitHub/eventweather/HW2WeatherJSP/web/index.jsp</file>
-            <file>file:/C:/Users/Mike/Documents/GitHub/eventweather/HW2WeatherJSP/web/Weather3Demo.html</file>
-            <file>file:/C:/Users/Mike/Documents/GitHub/eventweather/HW2WeatherJSP/web/loggedin/TestJSP.jsp</file>
+            <file>file:/C:/Users/Mike/Documents/GitHub/eventweather/HW2WeatherJSP/src/java/weatherservice/restful/RestfulSearchInfo.java</file>
+            <file>file:/C:/Users/Mike/Documents/GitHub/eventweather/HW2WeatherJSP/src/java/weatherservice/UserSearchInfoView.java</file>
             <file>file:/C:/Users/Mike/Documents/GitHub/eventweather/HW2WeatherJSP/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/Mike/Documents/GitHub/eventweather/HW2WeatherJSP/web/loggedin/homepage.jsp</file>
+            <file>file:/C:/Users/Mike/Documents/GitHub/eventweather/HW2WeatherJSP/src/java/weatherservice/WeatherRestView.java</file>
+            <file>file:/C:/Users/Mike/Documents/GitHub/eventweather/HW2WeatherJSP/src/java/weatherservice/DBManager.java</file>
         </group>
     </open-files>
 </project-private>
