@@ -80,19 +80,20 @@ public class CheckUser extends HttpServlet {
         if(username == null){
 
             if(DB.findUser(password, email)){ 
-                session.setAttribute("found", true);
                 session.setAttribute("username", email); 
-                response.sendRedirect("loggedin/homepage.jsp"); 
+                session.setAttribute("loggedin", true);
+                response.sendRedirect(request.getContextPath() + "/login/homepage.jsp"); 
             } 
             else{
-                session.setAttribute("found", false);
-                response.sendRedirect("index.jsp"); 
+                session.setAttribute("notfound", false);
+                session.setAttribute("loggedin", false);
+                response.sendRedirect(request.getContextPath() + "/index.jsp"); 
             }
         }
         else{
             session.setAttribute("username", username); 
             DB.addUser(username, password, email);
-            response.sendRedirect("loggedin/homepage.jsp"); 
+            response.sendRedirect(request.getContextPath() + "/login/homepage.jsp"); 
         }
 
     }

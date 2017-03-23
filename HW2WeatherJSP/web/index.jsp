@@ -16,18 +16,14 @@
     <center>
         <b><font size="5"> EVENTFUL WEATHER</font></b><br/>&nbsp;
         Sign in:
-        <%
-           try{
-                if(!((boolean)session.getAttribute("found"))){
-                    out.print("Incorrect username or password ");
-                }
-           }
-           catch(Exception e){
-               e.printStackTrace();
-           }
+        <% 
+        if(session.getAttribute("notfound") != null){
+            
+            out.print("Incorrect username or password ");
+            
+        }
         %>
             
-        
 
         <form name ="Signin" method="post" action="CheckUser">
             Enter Email: <br />
@@ -41,6 +37,8 @@
             Don't have an account? Make one! - 
             <input type="submit" value="Sign up"><br />
         </form>
+        
+        <a href="diagram.html" class="button">Diagram of Web Service</a>
     </center>
     </body>
 </html>

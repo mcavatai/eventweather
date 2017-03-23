@@ -15,5 +15,8 @@
         Welcome 
         <% out.print(session.getAttribute("username")); %>
         <a href="eventful.jsp" class="button">Go to Event Page</a>
+        <form name ="Signout" method="post" action= "logout.jsp">
+            <input type="submit" value="Logout">
+        </form>&nbsp;
     </body>
 </html>

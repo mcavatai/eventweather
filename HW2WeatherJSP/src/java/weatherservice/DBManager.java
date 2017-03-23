@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class DBManager {
 
     Connection conn;
+    Statement st;
 
     public DBManager() {
 
@@ -23,7 +24,8 @@ public class DBManager {
             }
 
             //Should establish the connection
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + "tank", "root", "smb3pwns");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tank?autoReconnect=true&useSSL=false", "root", "Tiger120");
+            st = conn.createStatement();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -46,7 +48,7 @@ public class DBManager {
     public boolean findUser(String password, String email) {
 
         try {
-            ResultSet user = conn.createStatement().executeQuery("SELECT * FROM Users WHERE Email = '" + email + "' and Password = '" + password + "';");
+            ResultSet user = st.executeQuery("SELECT * FROM users WHERE email = '" + email + "' and password = '" + password + "';");
             if (user.next()) {
                 return true;
             }

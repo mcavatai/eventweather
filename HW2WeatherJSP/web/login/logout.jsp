@@ -1,6 +1,6 @@
 <%-- 
-    Document   : homepage
-    Created on : Feb 28, 2017, 4:29:21 PM
+    Document   : logout
+    Created on : Mar 20, 2017, 6:50:14 PM
     Author     : thom
 --%>
 
@@ -12,8 +12,9 @@
         <title>JSP Page</title>
     </head>
     <body>
-        Welcome 
-        <% out.print(session.getAttribute("username")); %>
-        <a href="eventful.jsp" class="button">Go to Event Page</a>
+        <%
+            session.invalidate();
+            response.sendRedirect(request.getContextPath());
+        %>
     </body>
 </html>
