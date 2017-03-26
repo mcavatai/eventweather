@@ -43,21 +43,6 @@ public class RestfulWeather extends HttpServlet {
         PrintWriter out = response.getWriter();
         HttpSession session = request.getSession();
 
-//        String acctEmail = (String) session.getAttribute("email");
-//        String zipValue = request.getParameter("zipcode");
-        //ask for /restful/users/(email address)/searches/(zipcode)
-        //get JSON representing row from Search data table
-//        OpenWeatherModel model = new OpenWeatherModel(zipValue);
-//        out.println("<!DOCTYPE html>");
-//        out.println("<html>");
-//        out.println("<head>");
-//        out.println("</head>");
-//        out.println("<body>");
-//        out.println("<p>" + model.getJson() + "</p>");//JSON for weather
-//        out.println("<p>" + request.getPathInfo() + "</p>");
-//        out.println("</body>");
-//        out.println("</html>");
-
         //This is the weather controller. Grab the zip code and spit out the information given back from the model
         if (request.getPathInfo() != null) {
 

@@ -51,7 +51,7 @@ public class RestfulSearchInfo extends HttpServlet {
         if (request.getPathInfo() != null) {
             String[] uriParameters = request.getPathInfo().substring(1).split("/");
             String emailAddress = uriParameters[0];
-            String zipCode = uriParameters[1];
+            String zipCode = uriParameters[1].replace("_", " ");
 
             JSONObject feedback = new JSONObject();
             int searchCount;
@@ -74,7 +74,7 @@ public class RestfulSearchInfo extends HttpServlet {
                     //make ye JSON
                     feedback.append("userEmail", emailAddress);
                     feedback.append("location", zipCode);
-                    feedback.append("searchCount", searchCount);
+                    feedback.put("searchCount", searchCount);
                 }
                 response.getWriter().write(feedback.toString());
             } catch (SQLException ex) {
@@ -95,7 +95,7 @@ public class RestfulSearchInfo extends HttpServlet {
         if (request.getPathInfo() != null) {
             String[] uriParameters = request.getPathInfo().substring(1).split("/");
             String userEmail = uriParameters[0];
-            String search = uriParameters[1];
+            String search = uriParameters[1].replace("_", " ");
 
             BufferedReader reader = request.getReader();
             StringBuilder builder = new StringBuilder();
@@ -115,10 +115,10 @@ public class RestfulSearchInfo extends HttpServlet {
                     System.out.println("Error: unable to load driver class!" + ex);
                     System.exit(1);
                 }
-
+                
                 int searchCount = -1;
                 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + "tank", "root", "smb3pwns");
-                ResultSet searches = conn.createStatement().executeQuery("SELECT * FROM Searches WHERE UserEmail = '" + userEmail + "' AND Search = '" + search + "';");
+                ResultSet searches = conn.createStatement().executeQuery("SELECT * FROM Searches WHERE UserEmail = '" + userEmail + "' AND Search = '" + search.replace("_", " ") + "';");
                 while (searches.next()) {
 //                    //grab Search_Count here
 //                    searchCount = searches.getInt("Search_Count");
@@ -127,7 +127,7 @@ public class RestfulSearchInfo extends HttpServlet {
 //                    //put back into db
 //                    conn.createStatement().executeUpdate("DELETE FROM Searches WHERE UserEmail = '" + userEmail + "' AND Search = '" + search + "';");
 //                    conn.createStatement().executeUpdate("INSERT into Searches VALUES('" + (int) data.get("searchCount") + "', '" + search + "', '" + userEmail + "');");
-                    conn.createStatement().executeUpdate("UPDATE Searches SET Search_Count = " + (int) data.get("searchCount") + " WHERE UserEmail = '" + userEmail + "' AND Search = '" + search + "';");
+                    conn.createStatement().executeUpdate("UPDATE Searches SET Search_Count = " + (int) data.get("searchCount") + " WHERE UserEmail = '" + userEmail + "' AND Search = '" + search.replace("_", " ") + "';");
                 }
             } catch (JSONException ex) {
                 Logger.getLogger(RestfulSearchInfo.class.getName()).log(Level.SEVERE, null, ex);

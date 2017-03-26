@@ -5,11 +5,15 @@
  */
 package weatherservice;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -17,11 +21,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.json.JSONException;
+import org.json.simple.JSONObject;
 
 /**
  *
  * @author Mike
  */
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 public class UserSearchInfoView extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -46,14 +55,37 @@ public class UserSearchInfoView extends HttpServlet {
         String httpParam = request.getParameter("command");
         if (null != zipParam && null != emailParam && null != httpParam && httpParam.equals("PUT")) {
             //update search info (increment by 1)
+            zipParam = zipParam.replace(" ", "_");
             URL url = new URL("http://localhost:8080/WeatherAppHW2/restful/RestfulSearchInfo/" + emailParam + "/" + zipParam);
             HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+            BufferedReader in = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
+
+            String jsonString = "";
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                jsonString += inputLine;
+            }
+            in.close();
+
+            JSONParser parser = new JSONParser();
+            JSONObject json;
+            int counter = 0;
+            try {
+                json = (JSONObject) parser.parse(jsonString);
+                counter = ((Long) json.get("searchCount")).intValue();
+            } catch (ParseException ex) {
+                Logger.getLogger(UserSearchInfoView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            counter++;
+            httpCon.disconnect();
+            httpCon = (HttpURLConnection) url.openConnection();
             httpCon.setRequestMethod("PUT");
             httpCon.setRequestProperty("Content-Type", "application/json");
             httpCon.setRequestProperty("Accept", "application/json");
             httpCon.setDoOutput(true);
             OutputStreamWriter osw = new OutputStreamWriter(httpCon.getOutputStream());
-            osw.write("{\"searchCount\":0,\"userEmail\":[\"mcavatai@oswego.edu\"],\"location\":[\"13090\"]}");
+            osw.write("{\"searchCount\":" + counter +",\"userEmail\":[\"" + emailParam + "\"],\"location\":[\"" + zipParam + "\"]}");
             osw.flush();
             osw.close();
             httpCon.connect();
@@ -91,7 +123,7 @@ public class UserSearchInfoView extends HttpServlet {
                 + "                </tr>\n"
                 + "<tr>"
                 + "  <td width=\"52%\"> <input type=\"checkbox\" name=\"command\" value=\"PUT\">\n"
-                + "  <label for=\"cbox1\">Reset search count to 0?</label> </td>\n"
+                + "  <label for=\"cbox1\">Increment count?</label> </td>\n"
                 + "</tr>"
                 + "            </table>\n"
                 + "            <p> \n"
