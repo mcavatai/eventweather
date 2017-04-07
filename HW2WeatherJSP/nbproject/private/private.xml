@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Mike/Documents/GitHub/eventweather/HW2WeatherJSP/web/EventView.html</file>
             <file>file:/C:/Users/Mike/Documents/GitHub/eventweather/HW2WeatherJSP/src/java/weatherservice/OpenWeatherModel.java</file>
             <file>file:/C:/Users/Mike/Documents/GitHub/eventweather/HW2WeatherJSP/src/java/weatherservice/restful/RestfulSearchInfo.java</file>
-            <file>file:/C:/Users/Mike/Documents/GitHub/eventweather/HW2WeatherJSP/src/java/weatherservice/restful/eventfulController.java</file>
+            <file>file:/C:/Users/Mike/Documents/GitHub/eventweather/HW2WeatherJSP/src/java/weatherservice/restful/EventfulControllerServlet.java</file>
             <file>file:/C:/Users/Mike/Documents/GitHub/eventweather/HW2WeatherJSP/web/login/eventful.jsp</file>
             <file>file:/C:/Users/Mike/Documents/GitHub/eventweather/HW2WeatherJSP/src/java/weatherservice/UserSearchInfoView.java</file>
+            <file>file:/C:/Users/Mike/Documents/GitHub/eventweather/HW2WeatherJSP/web/WEB-INF/web.xml</file>
             <file>file:/C:/Users/Mike/Documents/GitHub/eventweather/HW2WeatherJSP/src/java/weatherservice/CheckUser.java</file>
             <file>file:/C:/Users/Mike/Documents/GitHub/eventweather/HW2WeatherJSP/src/java/Eventful/Eventful.java</file>
             <file>file:/C:/Users/Mike/Documents/GitHub/eventweather/HW2WeatherJSP/src/java/weatherservice/eventfulRestView.java</file>

@@ -1,0 +1,18 @@
+@()
+
+@main("This is an application!") {
+
+    <form method="GET" action="@routes.WeatherDataController.getWeather()">
+        <input type="text" name="location"/>
+        <button>Check Weather</button>
+    </form>
+    <form method="GET" action="@routes.WeatherDataController.clearHistory()">
+        <input type="text" name="location"/>
+        <button><--- Clear Counter For This Location</button>
+    </form>
+    <form method="GET" action="@routes.WeatherDataController.clearAllHistory()">
+        <button>Clear All Session History</button>
+    </form>
+
+    <ul id="weather"></ul>
+}

@@ -75,17 +75,24 @@ public class UserSearchInfoView extends HttpServlet {
                 counter = ((Long) json.get("searchCount")).intValue();
             } catch (ParseException ex) {
                 Logger.getLogger(UserSearchInfoView.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (NullPointerException exc) {
+                counter = 0;
             }
-            
+
+            //TODO if no result exists yet, do POST instead of PUT
             counter++;
             httpCon.disconnect();
             httpCon = (HttpURLConnection) url.openConnection();
-            httpCon.setRequestMethod("PUT");
+            if (counter == 1) {
+                httpCon.setRequestMethod("POST");
+            } else {
+                httpCon.setRequestMethod("PUT");
+            }
             httpCon.setRequestProperty("Content-Type", "application/json");
             httpCon.setRequestProperty("Accept", "application/json");
             httpCon.setDoOutput(true);
             OutputStreamWriter osw = new OutputStreamWriter(httpCon.getOutputStream());
-            osw.write("{\"searchCount\":" + counter +",\"userEmail\":[\"" + emailParam + "\"],\"location\":[\"" + zipParam + "\"]}");
+            osw.write("{\"searchCount\":" + counter + ",\"userEmail\":[\"" + emailParam + "\"],\"location\":[\"" + zipParam + "\"]}");
             osw.flush();
             osw.close();
             httpCon.connect();

@@ -72,8 +72,8 @@ public class RestfulSearchInfo extends HttpServlet {
                     //get search count
                     searchCount = searches.getInt("Search_Count");
                     //make ye JSON
-                    feedback.append("userEmail", emailAddress);
-                    feedback.append("location", zipCode);
+                    feedback.put("userEmail", emailAddress);
+                    feedback.put("location", zipCode);
                     feedback.put("searchCount", searchCount);
                 }
                 response.getWriter().write(feedback.toString());
@@ -115,20 +115,55 @@ public class RestfulSearchInfo extends HttpServlet {
                     System.out.println("Error: unable to load driver class!" + ex);
                     System.exit(1);
                 }
-                
+
                 int searchCount = -1;
                 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + "tank", "root", "smb3pwns");
                 ResultSet searches = conn.createStatement().executeQuery("SELECT * FROM Searches WHERE UserEmail = '" + userEmail + "' AND Search = '" + search.replace("_", " ") + "';");
                 while (searches.next()) {
-//                    //grab Search_Count here
-//                    searchCount = searches.getInt("Search_Count");
-//                    //increment
-//                    searchCount++;
-//                    //put back into db
-//                    conn.createStatement().executeUpdate("DELETE FROM Searches WHERE UserEmail = '" + userEmail + "' AND Search = '" + search + "';");
-//                    conn.createStatement().executeUpdate("INSERT into Searches VALUES('" + (int) data.get("searchCount") + "', '" + search + "', '" + userEmail + "');");
                     conn.createStatement().executeUpdate("UPDATE Searches SET Search_Count = " + (int) data.get("searchCount") + " WHERE UserEmail = '" + userEmail + "' AND Search = '" + search.replace("_", " ") + "';");
                 }
+            } catch (JSONException ex) {
+                Logger.getLogger(RestfulSearchInfo.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(RestfulSearchInfo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("application/json; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        HttpSession session = request.getSession();
+        if (request.getPathInfo() != null) {
+            String[] uriParameters = request.getPathInfo().substring(1).split("/");
+            String userEmail = uriParameters[0];
+            String search = uriParameters[1].replace("_", " ");
+
+            BufferedReader reader = request.getReader();
+            StringBuilder builder = new StringBuilder();
+            String input;
+            while ((input = reader.readLine()) != null) {
+                System.out.println("POST: " + input);
+                builder.append(input);
+            }
+
+            JSONObject data;
+            try {
+                data = new JSONObject(builder.toString());
+
+                try {
+                    Class.forName("com.mysql.jdbc.Driver");
+                } catch (ClassNotFoundException ex) {
+                    System.out.println("Error: unable to load driver class!" + ex);
+                    System.exit(1);
+                }
+
+                int searchCount = -1;
+                searchCount = (int) data.get("searchCount");
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + "tank", "root", "smb3pwns");
+                conn.createStatement().executeUpdate("INSERT into Searches VALUES('" + (int) data.get("searchCount") + "', '" + search + "', '" + userEmail + "');");
             } catch (JSONException ex) {
                 Logger.getLogger(RestfulSearchInfo.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {

@@ -39,6 +39,10 @@ and open the template in the editor.
         <servlet-name>RestfulSearchInfo</servlet-name>
         <servlet-class>weatherservice.restful.RestfulSearchInfo</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EventfulControllerServlet</servlet-name>
+        <servlet-class>weatherservice.restful.EventfulControllerServlet</servlet-class>
+    </servlet>
     <!-- To save as <CATALINA_HOME>\webapps\helloservlet\WEB-INF\web.xml -->
     <!-- Note: All <servlet> elements MUST be grouped together and
          placed IN FRONT of the <servlet-mapping> elements -->
@@ -61,6 +65,10 @@ and open the template in the editor.
     <servlet-mapping>
         <servlet-name>RestfulSearchInfo</servlet-name>
         <url-pattern>/restful/RestfulSearchInfo/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EventfulControllerServlet</servlet-name>
+        <url-pattern>/restful/event</url-pattern>
     </servlet-mapping>
     
 </web-app>
