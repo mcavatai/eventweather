@@ -95,33 +95,41 @@ public class WeatherDataController extends Controller {
             entry.name = name;
             entry.searchcount = 1L;
             entry.save();
-            return ok("New entry posted");
+            return ok("New search data entry posted: " + name);
         } else {
             return ok("Entry for " + name + " already exists!");
         }
     }
 
     //PUT
-    public Result putUpdatedSearchCount(String name, Long searchCount) {
+    public Result putUpdatedSearchCount(String name) {
         System.out.println("::PUT::");
         System.out.println(name);
-        System.out.println(searchCount);
         System.out.println(request().body().asJson().toString());
         JsonNode json = request().body().asJson();
         String name2 = json.findPath("name").textValue();
         Long sc2 = json.findPath("searchcount").longValue();
         System.out.println("PAYLOAD:" + name2 + ":" + sc2);
         SearchEntry toBeUpdated = SearchEntry.find.where().eq("name", name).findUnique();
-        toBeUpdated.setSearchcount(searchCount);
-        toBeUpdated.update();
-        return ok("Updated count for " + name + " to " + searchCount);
+        if (toBeUpdated != null) {
+            toBeUpdated.setSearchcount(sc2);
+            toBeUpdated.update();
+            return ok("Updated count for " + name + " to " + sc2 + ".");
+        } else {
+            return ok("No search data was found for " + name + "!");
+        }
     }
 
     //DELETE
     public Result deleteSearchEntry(String name) {
         System.out.println("::DELETE::");
         System.out.println(name);
-        SearchEntry.find.where().eq("name", name).findUnique().delete();
-        return ok("Data for "+name+" cleared.");
+        SearchEntry toBeUpdated = SearchEntry.find.where().eq("name", name).findUnique();
+        if (toBeUpdated != null) {
+            toBeUpdated.delete();
+            return ok("Search data for " + name + " cleared.");
+        } else {
+            return ok("No search data was found for " + name + "!");
+        }
     }
 }
