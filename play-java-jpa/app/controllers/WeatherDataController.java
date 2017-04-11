@@ -6,9 +6,12 @@ import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.Controller;
 import play.mvc.Result;
 import models.WeatherModel;
+import models.SearchEntry;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
+import org.json.*;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.ArrayList;
 
@@ -73,5 +76,52 @@ public class WeatherDataController extends Controller {
     public Result clearAllHistory() {
         session().clear();
         return ok("Session data cleared.");
+    }
+
+    /* RESTFUL CONTROLS */
+
+    //TODO setup JSON payload
+
+    //POST
+    public Result postNewSearchEntry(String name) {
+        System.out.println("::POST::");
+        System.out.println(name);
+        System.out.println(request().body().asJson().toString());
+        JsonNode json = request().body().asJson();
+        String name2 = json.findPath("name").textValue();
+        System.out.println(name2);
+        if (SearchEntry.find.where().eq("name", name).findUnique() == null) {
+            SearchEntry entry = new SearchEntry();
+            entry.name = name;
+            entry.searchcount = 1L;
+            entry.save();
+            return ok("New entry posted");
+        } else {
+            return ok("Entry for " + name + " already exists!");
+        }
+    }
+
+    //PUT
+    public Result putUpdatedSearchCount(String name, Long searchCount) {
+        System.out.println("::PUT::");
+        System.out.println(name);
+        System.out.println(searchCount);
+        System.out.println(request().body().asJson().toString());
+        JsonNode json = request().body().asJson();
+        String name2 = json.findPath("name").textValue();
+        Long sc2 = json.findPath("searchcount").longValue();
+        System.out.println("PAYLOAD:" + name2 + ":" + sc2);
+        SearchEntry toBeUpdated = SearchEntry.find.where().eq("name", name).findUnique();
+        toBeUpdated.setSearchcount(searchCount);
+        toBeUpdated.update();
+        return ok("Updated count for " + name + " to " + searchCount);
+    }
+
+    //DELETE
+    public Result deleteSearchEntry(String name) {
+        System.out.println("::DELETE::");
+        System.out.println(name);
+        SearchEntry.find.where().eq("name", name).findUnique().delete();
+        return ok("Data for "+name+" cleared.");
     }
 }
