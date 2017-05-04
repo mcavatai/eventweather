@@ -44,7 +44,7 @@ public class WeatherDataController extends Controller {
                 String result = ("Location: " + model.getName());
                 result += ("\nCurrent Temp: " + model.getTemp() + "K");
                 result += ("\nCurrent Humidity: " + model.getHumidity() + "%");
-                result += ("\nCurrent Wind Speed: " + model.getWindSpeed() + "m/s");
+                result += ("\nCurrent Wind Speed: " + model.getWindSpeed() + " m/s");
                 result += ("\nCurrent Overcast: " + model.getOvercast() + "%");
                 if (session(location) == null) {
                     session(location, "1");
@@ -90,14 +90,14 @@ public class WeatherDataController extends Controller {
         JsonNode json = request().body().asJson();
         String name2 = json.findPath("name").textValue();
         System.out.println(name2);
-        if (SearchEntry.find.where().eq("name", name).findUnique() == null) {
+        if (SearchEntry.find.where().eq("name", name2).findUnique() == null) {
             SearchEntry entry = new SearchEntry();
-            entry.name = name;
+            entry.name = name2;
             entry.searchcount = 1L;
             entry.save();
-            return ok("New search data entry posted: " + name);
+            return ok("New search data entry posted: " + name2);
         } else {
-            return ok("Entry for " + name + " already exists!");
+            return ok("Entry for " + name2 + " already exists!");
         }
     }
 
