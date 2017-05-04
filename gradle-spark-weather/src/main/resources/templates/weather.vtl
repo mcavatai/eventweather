@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Weather Page!</title>
+        <meta charset="UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    </head>
+    <body>
+        <form>
+            <table width="75%">
+                <tr>
+                    <td width="48%">What is your zipcode?</td>
+                    <td width="52%">
+                        <input type="text" id="zipcode" name="zip"/>
+                    </td>
+                </tr>
+            </table>
+            <p>
+                <input type="submit" id="submitBtn" value="Submit" />
+                <input type="reset" name="Reset" value="Reset Form" />
+            </p>
+        </form>
+        <form action='/weather/deletehistory'>
+            <p>
+                <input type="submit" id="deleteBtn" value="Delete History" />
+            </p>
+        </form>
+
+        #if($zipcode)
+            <p>Zip Code: $zipcode</p>
+        #end
+        #if($location)
+            <p>Location: $location</p>
+        #end
+        #if($temp)
+            <p>Temperature: $temp K</p>
+        #end
+        #if($humid)
+            <p>Humidity: $humid %</p>
+        #end
+        #if($overcast)
+            <p>Overcast: $overcast %</p>
+        #end
+        #if($windspd)
+            <p>Wind Speed: $windspd m/s</p>
+        #end
+        #if($scount)
+            <p>Number of times searched: $scount</p>
+        #end
+    </body>
+</html>

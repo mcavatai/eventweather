@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gradle-spark-weather.iml" filepath="$PROJECT_DIR$/.idea/modules/gradle-spark-weather.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gradle-spark-weather_main.iml" filepath="$PROJECT_DIR$/.idea/modules/gradle-spark-weather_main.iml" group="gradle-spark-weather" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gradle-spark-weather_test.iml" filepath="$PROJECT_DIR$/.idea/modules/gradle-spark-weather_test.iml" group="gradle-spark-weather" />
+    </modules>
+  </component>
+</project>
